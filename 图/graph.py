@@ -10,7 +10,7 @@ class Vertex:
         return str(self.id) + ' connectedTo: ' + str([x.id for x in self.connectedTo])
 
     def getConnections(self):
-        return self.connectedTo.keys()
+        return [v.id for v in self.connectedTo.keys()]
 
     def getId(self):
         return self.id
@@ -19,9 +19,10 @@ class Vertex:
         return self.connectedTo[nbr]
 
 class Graph:
-    def __init__(self):
+    def __init__(self, directed=True):
         self.vertList = {}
         self.numVertices = 0
+        self.directed = directed
     
     def addVertex(self, key):
         self.numVertices += 1
@@ -44,6 +45,8 @@ class Graph:
         if t not in self.vertList:
             nv = self.addVertex(t)
         self.vertList[f].addNeighbor(self.vertList[t], cost)
+        if not self.directed:
+            self.vertList[t].addNeighbor(self.vertList[f], cost)
 
     def getVertices(self):
          return self.vertList.keys()
@@ -52,7 +55,7 @@ class Graph:
         return iter(self.vertList.values())
 
 if __name__ == '__main__':
-    g = Graph()
+    g = Graph(directed=False)
     for i in range(6):
         g.addVertex(i)
     print(g.vertList)
