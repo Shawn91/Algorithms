@@ -51,11 +51,17 @@ class Graph:
     def getVertices(self):
          return self.vertList.keys()
 
+    def getEdges(self):
+        for v in self.getVertices():
+            for adjacent_vertex in self.getVertex(v).getConnections():
+                yield (v, adjacent_vertex, self.getVertex(v).getWeight(self.getVertex(adjacent_vertex)))
+
     def __iter__(self):
         return iter(self.vertList.values())
 
 if __name__ == '__main__':
-    g = Graph(directed=False)
+    g = Graph(directed=True)
     for i in range(6):
-        g.addVertex(i)
-    print(g.vertList)
+        g.addEdge(i,i-1,i*2)
+    for x in g.getEdges():
+        print(x)
