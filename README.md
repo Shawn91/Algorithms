@@ -24,3 +24,5 @@
     - Dijkstra 算法
     - Bellman-Ford 算法
     - Floyd-Warshall 算法
+  - 最小生成树算法
+    - Prim 算法

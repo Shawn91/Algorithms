@@ -10,6 +10,7 @@ def heapq_decrease(h, item, new_priority):
     """Decrease an item's priority by first deleting it from the heapq and then pushing it back with new priority"""
     h = [x for x in h if x[1]!=item]
     heapq.heappush(h, (new_priority, item))
+    return h
 
 def dijkstra(g, start_v):
     # 初始化
@@ -30,7 +31,7 @@ def dijkstra(g, start_v):
             if new_distance < dist[adjacent_vertex]:
                 dist[adjacent_vertex] = new_distance
                 pred[adjacent_vertex] = current_vertex
-                heapq_decrease(pq, adjacent_vertex, new_distance)
+                pq = heapq_decrease(pq, adjacent_vertex, new_distance)
     return {'pred':pred, 'dist':dist}
 
 if __name__ == '__main__':
